@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- css -->
+    <link rel="stylesheet" href="./css/style.css">
+
+    <!-- user js -->
+    <script src="./js/test.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <form action="/users" method="POST">
+        <div>
+            <label>ID</label>
+            <input type="text" name="id" />
+        </div>
+
+        <div>
+            <label>이름</label>
+            <input type="text" name="name" />
+        </div>
+
+        <div>
+            <label>Email</label>
+            <input type="email" name="email" />
+        </div>
+
+        <button type="submit">보내기</button>
+    </form>
+    
+    <h1>회원 목록</h1>
+    <h2>총 회원 수 <%= userCounts %>명</h2>
+    <ul>
+        <% if(userCounts > 0) { %>
+            <% for(let i = 0; i < userCounts; i++) { %>
+                <li>
+                    <p>ID: <%= USER[i].id %></p>
+                    <p>Name: <%= USER[i].name %></p>
+                    <p>Email: <%= USER[i].email %></p>
+                    <a href="" onclick="deleteUser('<%= USER[i].id %>');">삭제</a>
+                </li>
+            <% } %>
+        <% } else { %>
+            <li>회원 정보가 없습니다!</li>
+        <% } %>           
+    </ul>
+    <img src="./img/<%= imgName %>" alt="">
+</body>
+    <script>
+        function deleteUser(id) {
+            fetch(`http://localhost:4000/users/${id}`, {
+                method: 'delete',
+                headers: {
+                    'Content-type': 'application/json'
+                },
+            }).then((res) => {
+                console.log(res)
+                location.reload();
+            });
+        };
+    </script>
+</html>

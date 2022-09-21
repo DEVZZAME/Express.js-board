@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- css -->
+    <link rel="stylesheet" href="./css/style.css">
+
+    <!-- user js -->
+    <script src="./js/test.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <form action="/posts" method="POST">
+        <div>
+            <label>제목</label>
+            <input type="text" name="title" />
+        </div>
+
+        <div>
+            <label>내용</label>
+            <input type="text" name="content" />
+        </div>
+
+        <button type="submit">보내기</button>
+    </form>
+    
+    <h1>글 목록</h1>
+    <h2>총 글의 수 <%= postCounts %>포스트</h2>
+    <ul>
+        <% if(postCounts > 0) { %>
+            <% for(let i = 0; i < postCounts; i++) { %>
+                <li>
+                    <p>title: <%= POST[i].title %></p>
+                    <p>content: <%= POST[i].content %></p>
+                    <a href="" onclick="deletePost('<%= POST[i].title %>');">삭제</a>
+                </li>
+            <% } %>
+        <% } else { %>
+            <li>글 정보가 없습니다!</li>
+        <% } %>           
+    </ul>
+    <img src="./img/<%= imgName %>" alt="">
+</body>
+    <script>
+        function deletePost(title) {
+            fetch(`/posts/${title}`, {
+                method: 'delete',
+                headers: {
+                    'Content-type': 'application/json'
+                },
+            }).then((res) => {
+                console.log(res)
+                location.reload();
+            });
+        };
+    </script>
+</html>
