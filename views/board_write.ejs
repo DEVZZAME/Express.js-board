@@ -22,7 +22,7 @@
   <div class="container">
     <h1 class="mt-4">새글 작성하기</h1>
 
-    <form action="/board/write" method="POST" class="mt-5">
+    <form action="/board/write" method="POST" class="mt-5" enctype="multipart/form-data">
       <div class="mb-3">
         <label for="exampleFormControlInput1" class="form-label">TITLE</label>
         <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="글 제목을 입력해주세요." name="title">
@@ -30,6 +30,10 @@
       <div class="form-floating mb-3">
         <textarea class="form-control" placeholder="글 내용을 입력해주세요." id="floatingTextarea2" style="height: 100px" name="content"></textarea>
         <label for="floatingTextarea2">CONTENT</label>
+      </div>
+      <div class="form-floating mb-3">
+        <input class="form-control" type="file" style="height: 100px" name="img"></input>
+        <label for="floatingTextarea2">파일업로드</label>
       </div>
       <button type="submit" class="btn btn-primary mb-5">글 작성</button>
     </form>

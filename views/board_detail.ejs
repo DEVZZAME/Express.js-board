@@ -23,6 +23,9 @@
           <h6 class="card-subtitle mb-2 text-muted"></h6>
           <p class="card-text"><%=ARTICLE.content%></p>
         </div>
+        <%if(ARTICLE.img != null){%>
+          <img src="uploads/<%=ARTICLE.img%>" width="500" alt="<%=ARTICLE.title%>"/>
+          <%}%>
       </div>
     </div>
     

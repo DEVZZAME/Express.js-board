@@ -52,6 +52,9 @@
               <h5 class="card-title mb-3"><%= ARTICLE[i].title %></h5>
               <h5 class="card-title mb-3"><%= ARTICLE[i].content %></h5>
               <h6 class="card-subtitle mb-4 text-muted"><%= ARTICLE[i].id %></h6>
+              <%if(ARTICLE[i].img != null){%>
+                <img src="uploads/<%=ARTICLE[i].img%>" width="500"/>
+                <%}%>
             </div>
             <div>
               <p>글번호 : </p>

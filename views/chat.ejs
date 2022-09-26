@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>채팅서비스</title>
+</head>
+
+<body>
+  <input type="text" id="msg" />
+  <a href="javascript:void()" onclick="send();">전송</a>
+  <ol id="chat"></ol>
+</body>
+<script>
+  let ws = new WebSocket('ws://localhost:4000');
+
+  const inputEl = document.getElementById('msg');
+
+  const chat = document.getElementById('chat');
+
+  function send(){
+    const msg = inputEl.value;
+    ws.send(msg);
+    inputEl.value = '';
+  }
+
+  ws.onmessage = (event) => {
+    const msgEl = document.createElement('li');
+    msgEl.innerHTML = event.data;
+    chat.appendChild(msgEl);
+  }
+
+  // ws.onopen = (event) => {
+  //   ws.send('웹소켓에 정상적으로 연결되었습니다. 환영합니다!');
+  // }
+  // ws.onmessage = (event) => {
+  //   console.log('서버가 응답하였습니다.', event.data);
+  // }
+
+  // ws.onerror = (event) => {
+  //   console.log('알 수 없는 오류가 발생하였습니다.');
+  // }
+</script>
+
+</html>
