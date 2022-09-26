@@ -20,6 +20,7 @@ const app = express();
 app.set('view engine', 'ejs');
 app.set('views', 'views'); // 공식화
 app.use(express.static('public'));
+app.use('/uploads', express.static('uploads'));
 
 // 기본기능이여서 express 사용
 // app.use(bodyParser.json());
@@ -58,6 +59,8 @@ const registerRouter = require('./routes/resister');
 const loginRouter = require('./routes/login');
 // localStrategy
 const passportRouter = require('./routes/passport');
+const chatRouter = require('./routes/chat');
+
 // passport 사용
 passportRouter();
 
@@ -67,9 +70,10 @@ app.use('/posts', postRouter);
 // 과제리뷰
 app.use('/board', boardRouter);
 // 회원가입
-app.use('/register', registerRouter);
+app.use('/register', registerRouter.router);
 // 로그인
 app.use('/login', loginRouter.router);
+app.use('/chat', chatRouter);
 
 app.use((err, req, res, next) => {
   console.log(err.stack);
