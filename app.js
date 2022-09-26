@@ -54,7 +54,7 @@ const postRouter = require('./routes/posts');
 // 과제리뷰
 const boardRouter = require('./routes/board');
 // 회원가입
-const registerRouter = require('./routes/resister');
+const registerRouter = require('./routes/register');
 // 로그인
 const loginRouter = require('./routes/login');
 // localStrategy
