@@ -46,10 +46,42 @@ router.get('/logout', (req, res, next) => {
   });
 });
 
+// NAVER OAUTH LOGIN
 router.get('/auth/naver', passport.authenticate('naver'));
+
 router.get(
   '/auth/naver/callback',
   passport.authenticate('naver', {
+    successRedirect: '/board',
+    failureRedirect: '/',
+  })
+);
+
+// GOOGLE OAUTH LOGIN
+router.get('/auth/google', passport.authenticate('google', { scope: 'email' }));
+router.get(
+  '/auth/google/callback',
+  passport.authenticate('google', {
+    successRedirect: '/board',
+    failureRedirect: '/',
+  })
+);
+
+// KAKAO OAUTH LOGIN
+router.get('/auth/kakao', passport.authenticate('kakao'));
+router.get(
+  '/auth/kakao/callback',
+  passport.authenticate('kakao', {
+    successRedirect: '/board',
+    failureRedirect: '/',
+  })
+);
+
+// FACEBOOK OAUTH LOGIN
+router.get('/auth/facebook', passport.authenticate('facebook'));
+router.get(
+  '/auth/facebook/callback',
+  passport.authenticate('facebook', {
     successRedirect: '/board',
     failureRedirect: '/',
   })
