@@ -2,11 +2,31 @@
 
 const express = require('express');
 
+const multer = require('multer');
+
+const fs = require('fs');
+
 const router = express.Router();
 
 const mongoClient = require('./mongo');
 
 const login = require('./login');
+
+const dir = './uploads';
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, dir);
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.fieldname + '_' + Date.now());
+  },
+});
+const limits = {
+  fileSize: 1024 * 1028 * 2,
+};
+
+const upload = multer({ storage, limits });
 
 router.get('/', login.isLogin, async (req, res) => {
   // 글 전체 목록 보여주기
@@ -31,14 +51,17 @@ router.get('/write', login.isLogin, (req, res) => {
   res.render('board_write');
 });
 
-router.post('/write', login.isLogin, async (req, res) => {
+router.post('/write', login.isLogin, upload.single('img'), async (req, res) => {
   // 글 추가 모드로 이동
+  if (!fs.existsSync(dir)) fs.mkdirSync(dir);
+  console.log(req.file);
   if (req.body.title && req.body.content) {
     const newArticle = {
       id: req.session.userId ? req.session.userId : req.user.id,
       userName: req.user?.name ? req.user.name : req.user?.id,
       title: req.body.title,
       content: req.body.content,
+      img: req.file ? req.file.filename : null,
     };
     const client = await mongoClient.connect();
     const cursor = client.db('kdt1').collection('board');
