@@ -5,7 +5,7 @@ const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const KakaoStrategy = require('passport-kakao').Strategy;
 const FacebookStrategy = require('passport-facebook').Strategy;
 
-const verifyModule = require('./resister').verifyPassword;
+const verifyModule = require('./register').verifyPassword;
 
 // require('dotenv').config();
 const mongoClient = require('./mongo');
